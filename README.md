@@ -17,6 +17,4 @@ php artisan migrate
 # Populate initial data
 php artisan db:seed
 
-# Reset and repopulate
-php artisan migrate:fresh --seed
-Default credentials: admin@admin.com / 123456789
+
