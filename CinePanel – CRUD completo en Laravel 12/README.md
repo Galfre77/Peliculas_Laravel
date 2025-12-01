@@ -1,61 +1,254 @@
+# CinePanel - Sistema de Gestión de Películas
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema CRUD (Create, Read, Update, Delete) completo para la gestión de películas desarrollado con Laravel 12 y diseñado para funcionar en XAMPP.
 
-## About Laravel
+## 📋 Características
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- ✅ **CRUD completo de películas**: Crear, leer, actualizar y eliminar películas
+- 🎭 **Sistema de categorías**: Acción, Comedia, Terror, Aventura
+- 🔐 **Sistema de autenticación**: Login y registro de usuarios
+- 🖼️ **Gestión de portadas**: Carga de imágenes para cada película
+- 📱 **Interfaz responsive**: Diseño adaptable a diferentes dispositivos
+- 🎯 **Middleware de autenticación**: Protección de rutas sensibles
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Requisitos del Sistema
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP >= 8.2
+- Composer
+- XAMPP (incluye Apache y MariaDB/MySQL)
+- Node.js y NPM (para assets front-end)
 
-## Learning Laravel
+## 📦 Instalación
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clonar el repositorio
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+git clone https://github.com/Galfre77/Peliculas_Laravel.git
+cd "CinePanel – CRUD completo en Laravel 12"
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Instalar dependencias de PHP
 
-## Laravel Sponsors
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Instalar dependencias de Node.js
 
-### Premium Partners
+```bash
+npm install
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 4. Configurar el archivo de entorno
 
-## Contributing
+Copia el archivo de ejemplo y configúralo:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp .env.example .env
+```
 
-## Code of Conduct
+Edita el archivo `.env` con la configuración de tu base de datos:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=peliculas
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+### 5. Generar la clave de aplicación
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan key:generate
+```
 
-## License
+### 6. Crear la base de datos
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Inicia XAMPP y asegúrate de que Apache y MySQL estén corriendo
+2. Accede a phpMyAdmin: `http://localhost/phpmyadmin`
+3. Crea una nueva base de datos llamada `peliculas`
+
+### 7. Ejecutar las migraciones
+
+Este comando creará todas las tablas necesarias en la base de datos:
+
+```bash
+php artisan migrate
+```
+
+Las migraciones crearán las siguientes tablas:
+- `users` - Usuarios del sistema
+- `categorias` - Categorías de películas (Acción, Comedia, Terror, Aventura)
+- `peliculas` - Información de las películas
+
+### 8. Ejecutar los seeders
+
+Los seeders poblarán la base de datos con datos iniciales:
+
+```bash
+php artisan db:seed
+```
+
+Este comando insertará:
+- **Categorías predefinidas**: Acción, Comedia, Terror, Aventura
+- **Usuario administrador por defecto**:
+  - Email: `admin@admin.com`
+  - Contraseña: `123456789`
+- **8 películas de ejemplo** (2 por cada categoría)
+
+### 9. Crear directorio de almacenamiento público
+
+```bash
+php artisan storage:link
+```
+
+### 10. Compilar assets
+
+Para desarrollo:
+```bash
+npm run dev
+```
+
+Para producción:
+```bash
+npm run build
+```
+
+### 11. Iniciar el servidor
+
+```bash
+php artisan serve
+```
+
+La aplicación estará disponible en: `http://localhost:8000`
+
+## 🎬 Uso de la Aplicación
+
+### Credenciales por Defecto
+
+Después de ejecutar los seeders, puedes acceder con:
+- **Email**: `admin@admin.com`
+- **Contraseña**: `123456789`
+
+### Funcionalidades Principales
+
+1. **Ver películas**: Accede a `/peliculas` para ver el listado completo
+2. **Ver detalle**: Click en una película para ver su información completa
+3. **Agregar película**: (Requiere login) Click en "Alta Película"
+4. **Editar película**: (Requiere login) Accede al modo mantenimiento desde el detalle
+5. **Eliminar película**: (Requiere login) Disponible en el modo mantenimiento
+
+### Estructura de la Base de Datos
+
+#### Tabla `peliculas`
+- `idpelis` (PK): ID único de la película
+- `titulo`: Título de la película
+- `direccion`: Director de la película
+- `año`: Año de lanzamiento
+- `sinopsis`: Descripción de la película
+- `portada`: Nombre del archivo de imagen
+- `fecha_alta`: Fecha de registro
+- `idcategoria` (FK): Referencia a la categoría
+
+#### Tabla `categorias`
+- `idcategoria` (PK): ID único de la categoría
+- `nombre`: Nombre de la categoría
+
+#### Tabla `users`
+- `id` (PK): ID único del usuario
+- `nombre`: Nombre del usuario
+- `email`: Correo electrónico (único)
+- `password`: Contraseña encriptada
+- Timestamps de Laravel
+
+## 🔄 Comandos Útiles
+
+### Resetear base de datos y poblar con datos frescos
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Este comando elimina todas las tablas, las vuelve a crear y ejecuta los seeders.
+
+### Ver rutas disponibles
+
+```bash
+php artisan route:list
+```
+
+### Limpiar caché
+
+```bash
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+```
+
+## 📁 Estructura del Proyecto
+
+```
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── peliculaController.php      # CRUD de películas
+│   │   ├── VistasController.php        # Vistas principales
+│   │   ├── AutenticacionSessionController.php  # Login/Logout
+│   │   └── UserController.php          # Gestión de usuarios
+│   └── Models/
+│       └── Pelicula.php                 # Modelo de película
+├── database/
+│   ├── migrations/
+│   │   └── 2025_09_27_092155_create_peliculas__tables.php
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       └── plaSeeder.php                # Datos iniciales
+├── resources/
+│   └── views/
+│       ├── peliculas.blade.php          # Lista de películas
+│       ├── pelicula.blade.php           # Detalle de película
+│       ├── pelicula-alta.blade.php      # Formulario de alta
+│       └── pelicula-mto.blade.php       # Formulario de edición
+├── routes/
+│   └── web.php                          # Definición de rutas
+└── public/
+    └── images/                          # Portadas de películas
+```
+
+## 🚀 Despliegue en XAMPP
+
+1. Copia el proyecto a `C:\xampp\htdocs\`
+2. Asegúrate de que Apache y MySQL estén iniciados en XAMPP
+3. Configura el archivo `.env` con las credenciales de tu base de datos
+4. Ejecuta las migraciones y seeders
+5. Accede a la aplicación desde `http://localhost:8000` (con `php artisan serve`)
+   o configura un Virtual Host en Apache
+
+## 🐛 Solución de Problemas
+
+### Error de permisos en storage/logs
+
+```bash
+chmod -R 775 storage bootstrap/cache
+```
+
+### Error con la clave de aplicación
+
+```bash
+php artisan key:generate
+```
+
+### No se pueden cargar imágenes
+
+Verifica que el directorio `public/images` exista y tenga permisos de escritura.
+
+## 📝 Licencia
+
+Este proyecto es software de código abierto bajo la [Licencia MIT](https://opensource.org/licenses/MIT).
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, abre un issue o pull request para sugerencias o mejoras.
