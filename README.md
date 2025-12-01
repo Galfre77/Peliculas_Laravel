@@ -1,4 +1,4 @@
-Replaced generic Laravel README with project-specific documentation for the CinePanel movie CRUD application developed for XAMPP.
+
 
 Changes
 Installation guide: XAMPP-specific setup with database configuration for MariaDB
