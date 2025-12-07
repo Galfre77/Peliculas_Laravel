@@ -97,7 +97,7 @@ class peliculaController extends Controller
     function bajaPelicula($idpelis){
         // busca la pelicula a eliminar
         $borrar = Pelicula::find($idpelis);
-        $borrar->delete();
+       /* $borrar->delete();
         if ($borrar){
             // eliminar la imagen de la carpeta public/img si no es la imagen por defecto
             if ($borrar->portada != "sinportada.jpg"){
@@ -105,6 +105,7 @@ class peliculaController extends Controller
             }
         }
         $imagenPortada = $borrar->portada;
+        */
         $aviso = "Pelicula eliminada correctamente, $borrar->titulo";
         return redirect()->route("vista.peliculas")->with("success",  $aviso);
     }

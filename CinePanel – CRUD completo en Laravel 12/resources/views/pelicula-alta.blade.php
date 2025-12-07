@@ -1,75 +1,94 @@
 @extends('layout')
+
 @section('contenido')
+<section id="contenido">
+    <div class="container animated fadeIn slow">
+        <div class="row">
+            <!-- Formulario -->
+            <div class="col-12 col-lg-8">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-    <section id='contenido'>
-        <div class='row animated fadeIn slow'>
-            <div class='column col-8'>
-                <div class='page-header'>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                </div>
-                <form action="{{ route('pelicula.alta') }}" method='post' enctype="multipart/form-data" >
+                <form action="{{ route('pelicula.alta') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="row mb-3">
+
+                    <!-- Título -->
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Título</label>
                         <div class="col-sm-10">
-                        <input required type="text" class="form-control" name="titulo" value = "{{  old('titulo') ?? $pelicula->titulo ?? null  }}">
+                            <input required type="text" class="form-control" name="titulo"
+                                   value="{{ old('titulo') ?? $pelicula->titulo ?? '' }}">
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <!-- Categoría -->
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Categoría</label>
                         <div class="col-sm-10">
                             <select required class="form-control" name="idcategoria">
-                                <optioin value="">Seleccione una categoría</option>
-                                <option value="1" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? null) == 1 ? 'selected' : '' }}>Acción</option>
-                                <option value="2" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? null) == 2 ? 'selected' : '' }}>Comedia</option>
-                                <option value="3" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? null) == 3 ? 'selected' : '' }}>Drama</option>
-                                <option value="4" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? null) == 4 ? 'selected' : '' }}>Terror</option>
+                                <option value="">Seleccione una categoría</option>
+                                <option value="1" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? '') == 1 ? 'selected' : '' }}>Acción</option>
+                                <option value="2" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? '') == 2 ? 'selected' : '' }}>Comedia</option>
+                                <option value="3" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? '') == 3 ? 'selected' : '' }}>Drama</option>
+                                <option value="4" {{ (old('idcategoria') ?? $pelicula->idcategoria ?? '') == 4 ? 'selected' : '' }}>Terror</option>
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <!-- Dirección -->
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Dirección</label>
                         <div class="col-sm-10">
-                        <input required type="text" class="form-control" name="direccion" value = "{{ old('direccion') ?? $pelicula->direccion ?? null }}">
+                            <input required type="text" class="form-control" name="direccion"
+                                   value="{{ old('direccion') ?? $pelicula->direccion ?? '' }}">
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <!-- Año -->
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Año</label>
                         <div class="col-sm-10">
-                        <input required type="number" class="form-control" name="año" value = "{{ old('año') ?? $pelicula->año ?? null }}">
+                            <input required type="number" class="form-control" name="año"
+                                   value="{{ old('año') ?? $pelicula->año ?? '' }}">
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <!-- Portada -->
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Portada</label>
                         <div class="col-sm-10">
-                        <input type="file" class="form-control" name="portada" id='portada'  accept='image/*' onchange="previsualizar(event)">
+                            <input type="file" class="form-control" name="portada" id="portada" accept="image/*" onchange="previsualizar(event)">
                         </div>
                     </div>
-                    <div class="row mb-3">
+
+                    <!-- Sinopsis -->
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label">Sinopsis</label>
                         <div class="col-sm-10">
-                        <textarea required class="form-control" name="sinopsis" rows="5" >{{ old('sinopsis') ?? $pelicula->sinopsis ?? null }}</textarea>
+                            <textarea required class="form-control" name="sinopsis" rows="5">{{ old('sinopsis') ?? $pelicula->sinopsis ?? '' }}</textarea>
                         </div>
                     </div>
+
                     <hr>
+
                     @auth
                         <button type="submit" class="btn btn-primary">Alta película</button>
                     @endauth
                 </form>
             </div>
-            <div class='column col-4'>
-                <img id=previsualizar src='{{asset("img/sinportada.jpg")}}' alt="previsualizar" id='previsualizar'>
+
+            <!-- Imagen -->
+            <div class="col-12 col-lg-4 text-center mt-4 mt-lg-0">
+                <img id="previsualizar" src="{{ asset('img/sinportada.jpg') }}" alt="previsualizar" class="img-fluid rounded border">
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
 @endsection
